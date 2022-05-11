@@ -3,6 +3,17 @@ defmodule ChatApi.AwsTest do
 
   alias ChatApi.Aws
 
+  def wait_for_completion(function_name) do
+    %{"Configuration" => %{"State" => state}} = Aws.get_lambda_function(function_name)
+
+    if state != "Pending" && state != "InProgress" do
+      state
+    else
+      :timer.sleep(500)
+      wait_for_completion(function_name)
+    end
+  end
+
   describe "aws" do
     test "validate_config/0 validates that all the environment variables are set" do
       # Not sure the best way to test environment variables...
@@ -49,6 +60,8 @@ defmodule ChatApi.AwsTest do
     end
   end
 
+  # Too slow for typical use, unskip when modifying AWS
+  @tag :skip
   describe "lambda" do
     @moduletag :lambda_development
 
@@ -90,6 +103,8 @@ defmodule ChatApi.AwsTest do
           "env" => %{"PAPERCUPS_API_KEY" => api_key}
         })
 
+      wait_for_completion(function_name)
+
       %{"body" => body, "statusCode" => status_code} =
         Aws.invoke_lambda_function(function_name, %{"hello" => "world"})
 
@@ -103,8 +118,11 @@ defmodule ChatApi.AwsTest do
       };
       """
 
-      %{"FunctionName" => ^function_name} =
+      %{"FunctionName" => ^function_name, "State" => state} =
         Aws.update_function_by_code(updated_code, function_name)
+
+      :timer.sleep(500)
+      wait_for_completion(function_name)
 
       %{"body" => body, "statusCode" => status_code} =
         Aws.invoke_lambda_function(function_name, %{"hello" => "world"})
@@ -131,6 +149,8 @@ defmodule ChatApi.AwsTest do
           "env" => %{"PAPERCUPS_API_KEY" => api_key}
         })
 
+      wait_for_completion(function_name)
+
       %{"body" => body} = Aws.invoke_lambda_function(function_name, %{"hello" => "world"})
       assert body =~ api_key
 
@@ -139,6 +159,9 @@ defmodule ChatApi.AwsTest do
       Aws.update_function_configuration(function_name, %{
         "env" => %{"PAPERCUPS_API_KEY" => new_api_key}
       })
+
+      :timer.sleep(500)
+      wait_for_completion(function_name)
 
       %{"body" => body} = Aws.invoke_lambda_function(function_name, %{"hello" => "world"})
       assert body =~ new_api_key
@@ -157,6 +180,8 @@ defmodule ChatApi.AwsTest do
 
       Aws.create_function_by_code(code, function_name)
 
+      wait_for_completion(function_name)
+
       %{"statusCode" => 200, "body" => body} =
         Aws.invoke_lambda_function(function_name, %{"hello" => "world"})
 
@@ -173,6 +198,7 @@ defmodule ChatApi.AwsTest do
       """
 
       Aws.create_function_by_code(code, function_name)
+      wait_for_completion(function_name)
       assert Aws.get_lambda_function(function_name)
       Aws.delete_lambda_function(function_name)
 

@@ -1,6 +1,8 @@
-**:warning: Maintenance Mode**
+
 
 Forky fork.
+
+**:warning: Maintenance Mode**
 
 > _Papercups is in maintenance mode. This means there won't be any major new features in the near future. We will still accept pull requests and conduct major bug fixes. Read more [here](https://papercups.io/blog/papercups-maintenance)_
 

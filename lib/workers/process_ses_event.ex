@@ -58,7 +58,7 @@ defmodule ChatApi.Workers.ProcessSesEvent do
 
     case get_message_resource(addresses) do
       %Conversation{} = conversation ->
-        IO.inspect(conversation, label: "Found conversation!")
+        # IO.inspect(conversation, label: "Found conversation!")
 
         handle_existing_thread(conversation, %{
           ses_message_id: ses_message_id,
@@ -66,7 +66,7 @@ defmodule ChatApi.Workers.ProcessSesEvent do
         })
 
       %ForwardingAddress{} = forwarding_address ->
-        IO.inspect(forwarding_address, label: "Found forwarding address!")
+        # IO.inspect(forwarding_address, label: "Found forwarding address!")
 
         handle_new_thread(forwarding_address, %{
           ses_message_id: ses_message_id,
@@ -84,10 +84,10 @@ defmodule ChatApi.Workers.ProcessSesEvent do
         from_address: from_address
       }) do
     with {:ok, email} <- Aws.retrieve_formatted_email(ses_message_id),
-         IO.inspect(email, label: "Formatted email"),
+         # IO.inspect(email, label: "Formatted email"),
          {:ok, %Customer{} = customer} <-
            Customers.find_or_create_by_email(from_address, account_id),
-         IO.inspect(customer, label: "Customer"),
+         # IO.inspect(customer, label: "Customer"),
          {:ok, conversation} <-
            create_and_broadcast_conversation(%{
              account_id: account_id,
@@ -96,8 +96,7 @@ defmodule ChatApi.Workers.ProcessSesEvent do
              subject: email.subject,
              # TODO: distinguish between gmail and SES?
              source: "email"
-           }),
-         IO.inspect(conversation, label: "Created conversation!") do
+           }) do
       create_and_broadcast_message(
         %{
           body: email.formatted_text,
@@ -125,10 +124,9 @@ defmodule ChatApi.Workers.ProcessSesEvent do
         from_address: from_address
       }) do
     with {:ok, email} <- Aws.retrieve_formatted_email(ses_message_id),
-         IO.inspect(email, label: "Formatted email"),
+         # IO.inspect(email, label: "Formatted email"),
          {:ok, %Customer{} = customer} <-
-           Customers.find_or_create_by_email(from_address, account_id),
-         IO.inspect(customer, label: "Customer") do
+           Customers.find_or_create_by_email(from_address, account_id) do
       create_and_broadcast_message(
         %{
           body: email.formatted_text,

@@ -56,7 +56,7 @@ defmodule ChatApi.Workers.SendSesReplyEmail do
       attachments: format_email_attachments(attachments)
     }
 
-    IO.inspect(email, label: "[SendSesReplyEmail] Sending SES email")
+    # IO.inspect(email, label: "[SendSesReplyEmail] Sending SES email")
 
     case Aws.send_email(email) do
       %{body: %{message_id: raw_message_id}, status_code: 200} ->
@@ -72,7 +72,8 @@ defmodule ChatApi.Workers.SendSesReplyEmail do
               "ses_from" => ses_from
             })
         })
-        |> IO.inspect(label: "[SendSesReplyEmail] Successfully replied!")
+
+      # |> IO.inspect(label: "[SendSesReplyEmail] Successfully replied!")
 
       error ->
         Logger.error("[SendSesReplyEmail] Failed to send email: #{inspect(error)}")

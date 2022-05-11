@@ -1,5 +1,5 @@
 defmodule ChatApiWeb.SlackControllerTest do
-  use ChatApiWeb.ConnCase, async: true
+  use ChatApiWeb.ConnCase, async: false
 
   import ChatApi.Factory
   import Mock
