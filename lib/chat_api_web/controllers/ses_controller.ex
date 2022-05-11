@@ -10,7 +10,7 @@ defmodule ChatApiWeb.SesController do
           "to_addresses" => to_addresses
         } = payload
       ) do
-    IO.inspect(payload, label: "Payload from SES webhook")
+    # IO.inspect(payload, label: "Payload from SES webhook")
 
     %{
       ses_message_id: ses_message_id,
