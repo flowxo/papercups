@@ -22,7 +22,10 @@ defmodule ChatApi.Workers.SendWelcomeEmail do
   end
 
   def is_hosted_version?() do
-    System.get_env("DOMAIN") == "mail.heypapercups.io"
+    case System.get_env("IS_HOSTED") do
+      x when x == "1" or x == "true" -> true
+      _ -> false
+    end
   end
 
   def welcome_email_enabled?() do

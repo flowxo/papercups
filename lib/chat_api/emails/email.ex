@@ -8,7 +8,10 @@ defmodule ChatApi.Emails.Email do
 
   @type t :: Swoosh.Email.t()
 
+  @from_name System.get_env("FROM_NAME") || "Support"
   @from_address System.get_env("FROM_ADDRESS") || ""
+  @email_prefix_tag System.get_env("DEFAULT_EMAIL_PREFIX_TAG") || "[Action Required]"
+  @reply_to_address System.get_env("REPLY_TO_ADDRESS") || @from_address
   @backend_url System.get_env("BACKEND_URL", "app.papercups.io")
 
   defstruct to_address: nil, message: nil
@@ -100,7 +103,8 @@ defmodule ChatApi.Emails.Email do
 
     new()
     |> to(to_address)
-    |> from({"Papercups", @from_address})
+    |> from({@from_name, @from_address})
+    |> reply_to(@reply_to_address)
     |> subject(subject)
     |> html_body(html)
     |> text_body(text)
@@ -259,8 +263,8 @@ defmodule ChatApi.Emails.Email do
   def welcome(to_address) do
     new()
     |> to(to_address)
-    |> from({"Alex", @from_address})
-    |> reply_to("alex@papercups.io")
+    |> from({@from_name, @from_address})
+    |> reply_to(@reply_to_address)
     |> subject("Welcome to Papercups!")
     |> html_body(welcome_email_html())
     |> text_body(welcome_email_text())
@@ -336,8 +340,8 @@ defmodule ChatApi.Emails.Email do
 
     new()
     |> to(to_address)
-    |> from({"Alex", @from_address})
-    |> reply_to("alex@papercups.io")
+    |> from({@from_name, @from_address})
+    |> reply_to(@reply_to_address)
     |> subject(subject)
     |> html_body(
       user_invitation_email_html(%{
@@ -399,8 +403,9 @@ defmodule ChatApi.Emails.Email do
   def password_reset(%ChatApi.Users.User{email: email, password_reset_token: token} = _user) do
     new()
     |> to(email)
-    |> from({"Papercups", @from_address})
-    |> subject("[Papercups] Link to reset your password")
+    |> from({@from_name, @from_address})
+    |> reply_to(@reply_to_address)
+    |> subject("#{@email_prefix_tag} Link to reset your password")
     |> html_body(password_reset_html(token))
     |> text_body(password_reset_text(token))
   end
