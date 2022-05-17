@@ -44,41 +44,52 @@ defmodule ChatApi.Workers.SendSesReplyEmail do
     references = build_references(ses_references, ses_message_id)
     original_metadata = message.metadata || %{}
     attachments = message.attachments || []
+    domain = Application.get_env(:chat_api, :ses_forwarding_domain)
 
-    email = %{
-      to: ses_from,
-      from: "#{sender_name} <mailer@chat.papercups.io>",
-      reply_to: "reply+#{conversation_id}@chat.papercups.io",
-      subject: ses_subject,
-      text: message.body,
-      in_reply_to: ses_message_id,
-      references: references,
-      attachments: format_email_attachments(attachments)
-    }
-
-    # IO.inspect(email, label: "[SendSesReplyEmail] Sending SES email")
-
-    case Aws.send_email(email) do
-      %{body: %{message_id: raw_message_id}, status_code: 200} ->
-        Messages.update_message(message, %{
-          metadata:
-            metadata
-            |> Map.merge(original_metadata)
-            |> Map.merge(%{
-              "ses_message_id" => "<#{raw_message_id}@email.amazonses.com>",
-              "ses_in_reply_to" => ses_message_id,
-              "ses_references" => references,
-              "ses_subject" => ses_subject,
-              "ses_from" => ses_from
-            })
-        })
-
-      # |> IO.inspect(label: "[SendSesReplyEmail] Successfully replied!")
-
-      error ->
-        Logger.error("[SendSesReplyEmail] Failed to send email: #{inspect(error)}")
+    case domain do
+      nil ->
+        Logger.error(
+          "[SendSesReplyEmail] Failed to send email, no SES domain specified in SES_FORWARDING_DOMAIN"
+        )
 
         nil
+
+      domain ->
+        email = %{
+          to: ses_from,
+          from: "#{sender_name} <mailer@#{domain}>",
+          reply_to: "reply+#{conversation_id}@#{domain}",
+          subject: ses_subject,
+          text: message.body,
+          in_reply_to: ses_message_id,
+          references: references,
+          attachments: format_email_attachments(attachments)
+        }
+
+        # IO.inspect(email, label: "[SendSesReplyEmail] Sending SES email")
+
+        case Aws.send_email(email) do
+          %{body: %{message_id: raw_message_id}, status_code: 200} ->
+            Messages.update_message(message, %{
+              metadata:
+                metadata
+                |> Map.merge(original_metadata)
+                |> Map.merge(%{
+                  "ses_message_id" => "<#{raw_message_id}@email.amazonses.com>",
+                  "ses_in_reply_to" => ses_message_id,
+                  "ses_references" => references,
+                  "ses_subject" => ses_subject,
+                  "ses_from" => ses_from
+                })
+            })
+
+          # |> IO.inspect(label: "[SendSesReplyEmail] Successfully replied!")
+
+          error ->
+            Logger.error("[SendSesReplyEmail] Failed to send email: #{inspect(error)}")
+
+            nil
+        end
     end
   end
 

@@ -189,13 +189,19 @@ defmodule ChatApi.Aws do
     email
     |> build_email_message()
     |> ExAws.SES.send_raw_email()
-    |> ExAws.request!(%{region: region})
+    # |> IO.inspect(label: "[SendSesEmail] Composed, sending")
+    |> ExAws.request(%{region: region})
+    # |> IO.inspect(label: "[SendSesEmail] Result")
     |> case do
-      %{body: xml, status_code: 200} = result when is_binary(xml) ->
+      {:ok, %{body: xml, status_code: 200} = result} when is_binary(xml) ->
         Map.put(result, :body, parse_send_email_response_xml(xml))
 
-      response ->
-        response
+      {:ok, unexpected} ->
+        unexpected |> IO.inspect(label: "Unexpected Response")
+
+      error ->
+        error |> IO.inspect(label: "An error occurred sending an email via SES")
+        raise ExAws.Error, ""
     end
   end
 
