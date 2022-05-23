@@ -32,7 +32,7 @@ defmodule ChatApi.Mattermost.MattermostAuthorization do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "mattermost_authorizations" do
-    field(:access_token, :string, null: false)
+    field(:access_token, :string)
     field(:refresh_token, :string)
     field(:bot_token, :string)
     field(:verification_token, :string)

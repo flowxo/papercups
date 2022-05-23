@@ -22,7 +22,7 @@ defmodule ChatApi.Inboxes.InboxMember do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "inbox_members" do
-    field(:role, :string, null: false)
+    field(:role, :string)
 
     belongs_to(:account, Account)
     belongs_to(:inbox, Inbox)

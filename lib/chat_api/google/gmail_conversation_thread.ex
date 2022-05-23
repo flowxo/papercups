@@ -23,7 +23,7 @@ defmodule ChatApi.Google.GmailConversationThread do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "gmail_conversation_threads" do
-    field(:gmail_thread_id, :string, null: false)
+    field(:gmail_thread_id, :string)
     field(:gmail_initial_subject, :string)
     field(:last_gmail_message_id, :string)
     field(:last_gmail_history_id, :string)

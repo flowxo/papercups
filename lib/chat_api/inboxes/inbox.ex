@@ -20,7 +20,7 @@ defmodule ChatApi.Inboxes.Inbox do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "inboxes" do
-    field(:name, :string, null: false)
+    field(:name, :string)
     field(:description, :string)
     field(:slug, :string)
     field(:is_primary, :boolean, default: false)

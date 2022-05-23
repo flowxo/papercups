@@ -60,8 +60,6 @@ defmodule ChatApi.AwsTest do
     end
   end
 
-  # Too slow for typical use, unskip when modifying AWS
-  @tag :skip
   describe "lambda" do
     @moduletag :lambda_development
 

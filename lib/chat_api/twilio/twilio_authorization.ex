@@ -24,9 +24,9 @@ defmodule ChatApi.Twilio.TwilioAuthorization do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "twilio_authorizations" do
-    field(:twilio_auth_token, :string, null: false)
-    field(:twilio_account_sid, :string, null: false)
-    field(:from_phone_number, :string, null: false)
+    field(:twilio_auth_token, :string)
+    field(:twilio_account_sid, :string)
+    field(:from_phone_number, :string)
     field(:metadata, :map)
 
     field(:settings, :map)

@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :chat_api,
   environment: Mix.env(),

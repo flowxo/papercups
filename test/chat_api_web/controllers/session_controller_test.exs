@@ -18,7 +18,7 @@ defmodule ChatApiWeb.SessionControllerTest do
   end
 
   def auth_params(%User{} = user) do
-    %{"user" => %{"email" => user.email, "password" => user.password}}
+    %{"user" => %{"email" => user.email, "password" => "supersecret123"}}
   end
 
   describe "create/2" do

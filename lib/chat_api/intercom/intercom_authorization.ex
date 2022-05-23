@@ -21,7 +21,7 @@ defmodule ChatApi.Intercom.IntercomAuthorization do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "intercom_authorizations" do
-    field(:access_token, :string, null: false)
+    field(:access_token, :string)
     field(:token_type, :string)
     field(:scope, :string)
     field(:metadata, :map)

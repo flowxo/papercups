@@ -23,7 +23,7 @@ defmodule ChatApi.Tags.Tag do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "tags" do
-    field(:name, :string, null: false)
+    field(:name, :string)
     field(:description, :string)
     field(:color, :string)
 

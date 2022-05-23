@@ -30,7 +30,7 @@ defmodule ChatApi.Google.GoogleAuthorization do
   schema "google_authorizations" do
     field(:client, :string)
     field(:access_token, :string)
-    field(:refresh_token, :string, null: false)
+    field(:refresh_token, :string)
     field(:token_type, :string)
     field(:expires_at, :integer)
     field(:scope, :string)

@@ -17,7 +17,7 @@ defmodule ChatApi.ProcessSesEventText do
     test "handling new threads", %{account: account} do
       insert(:forwarding_address,
         account: account,
-        forwarding_email_address: "company@chat.papercups.io"
+        forwarding_email_address: "company@#{System.get_env("SES_FORWARDING_DOMAIN")}"
       )
 
       text = "Hello world"
@@ -53,14 +53,17 @@ defmodule ChatApi.ProcessSesEventText do
              attachments: []
            }}
         end do
-        {:ok, message} =
-          ChatApi.Workers.ProcessSesEvent.process_event(%{
-            ses_message_id: "ses_message_id",
-            from_address: "customer@example.co",
-            to_addresses: ["support@me.com"],
-            forwarded_to: "company@chat.papercups.io",
-            received_by: []
-          })
+        evt = %{
+          ses_message_id: "ses_message_id",
+          from_address: "customer@example.co",
+          to_addresses: ["support@me.com"],
+          forwarded_to: "company@#{System.get_env("SES_FORWARDING_DOMAIN")}",
+          received_by: []
+        }
+
+        received = ChatApi.Workers.ProcessSesEvent.process_event(evt)
+
+        {:ok, message} = received
 
         message = ChatApi.Messages.get_message!(message.id)
 
