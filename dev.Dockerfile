@@ -1,11 +1,11 @@
 ARG MIX_ENV=dev
-FROM elixir:1.10 as dev
+FROM elixir:1.13 as dev
 ENV MIX_HOME=/opt/mix
 
 WORKDIR /usr/src/app
 ENV LANG=C.UTF-8
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs fswatch && \
     mix local.hex --force && \
     mix local.rebar --force
