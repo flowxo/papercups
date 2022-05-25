@@ -8,10 +8,10 @@ defmodule ChatApi.Emails.Email do
 
   @type t :: Swoosh.Email.t()
 
-  @from_name System.get_env("FROM_NAME") || "Support"
-  @from_address System.get_env("FROM_ADDRESS") || ""
+  @from_name System.get_env("EMAIL_FROM_NAME") || "Support"
+  @from_address System.get_env("EMAIL_FROM_ADDRESS") || ""
   @email_prefix_tag System.get_env("DEFAULT_EMAIL_PREFIX_TAG") || "[Action Required]"
-  @reply_to_address System.get_env("REPLY_TO_ADDRESS") || @from_address
+  @reply_to_address System.get_env("EMAIL_REPLY_TO_ADDRESS") || @from_address
   @backend_url System.get_env("BACKEND_URL", "app.papercups.io")
 
   defstruct to_address: nil, message: nil
@@ -134,11 +134,7 @@ defmodule ChatApi.Emails.Email do
 
     You've received a new message from your chat with #{company} (#{customer.current_url || ""}):
 
-    #{
-      Enum.map(messages, fn msg ->
-        format_sender(msg, company) <> ": " <> msg.body <> "\n"
-      end)
-    }
+    #{Enum.map(messages, fn msg -> format_sender(msg, company) <> ": " <> msg.body <> "\n" end)}
 
     Best,
     #{from}
@@ -226,11 +222,7 @@ defmodule ChatApi.Emails.Email do
 
     You were mentioned in a message on Papercups:
 
-    #{
-      Enum.map(messages, fn msg ->
-        format_sender(msg, company) <> ": " <> msg.body <> "\n"
-      end)
-    }
+    #{Enum.map(messages, fn msg -> format_sender(msg, company) <> ": " <> msg.body <> "\n" end)}
 
     View in the dashboard at #{dashboard_link}
 

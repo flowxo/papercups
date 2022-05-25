@@ -1,3 +1,6 @@
+domains:
+- domain: papercups-staging.flowxo.com
+  type: PRIMARY
 name: fxo-papercups-staging
 region: sfo
 services:
@@ -5,19 +8,19 @@ services:
   - key: SECRET_KEY_BASE
     scope: RUN_AND_BUILD_TIME
     type: SECRET
-    value: mtp/jOSI50Lxexba9WdXeuX1kTQ2+Xr+uxwZW6oykAGvAhwORP9CYqBeKSkzpSv/
+    value: xxx
   - key: BACKEND_URL
     scope: RUN_AND_BUILD_TIME
-    value: fxo-papercups-staging.ondigitalocean.app/
+    value: papercups-staging.flowxo.com
   - key: IS_HOSTED
     scope: RUN_AND_BUILD_TIME
     value: "true"
   - key: REACT_APP_URL
     scope: RUN_AND_BUILD_TIME
-    value: fxo-papercups-staging.ondigitalocean.app/
+    value: papercups-staging.flowxo.com
   - key: DATABASE_URL
     scope: RUN_AND_BUILD_TIME
-    value: postgresql://doadmin:AVNS_ro-6mqub0aIfGGX@fxo-papercups-staging-do-user-1656852-0.b.db.ondigitalocean.com:25061/fxo-papercups-staging?sslmode=require
+    value: xxx
   - key: EMAIL_FROM_NAME
     scope: RUN_AND_BUILD_TIME
     value: Flow XO Support
@@ -27,9 +30,87 @@ services:
   - key: EMAIL_REPLY_TO_ADDRESS
     scope: RUN_AND_BUILD_TIME
     value: support@flowxo.com
-  - key: xxx
-
-
+  - key: MAILGUN_API_KEY
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  - key: MAILGUN_DOMAIN
+    scope: RUN_AND_BUILD_TIME
+    value: mailer.flowxo.com
+  - key: MAILER_ADAPTER
+    scope: RUN_AND_BUILD_TIME
+    value: Swoosh.Adapters.Mailgun
+  - key: DEFAULT_EMAIL_PREFIX_TAG
+    scope: RUN_AND_BUILD_TIME
+    value: "[Flow XO]"
+  - key: USER_INVITATION_EMAIL_ENABLED
+    scope: RUN_AND_BUILD_TIME
+    value: "1"
+  - key: SLACK_CLIENT_ID
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  - key: SLACK_CLIENT_SECRET
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  # - key: SENTRY_DSN
+  #   scope: RUN_AND_BUILD_TIME
+  #   value: xxx
+  - key: STRIPE_SECRET
+    scope: RUN_AND_BUILD_TIME
+    value: xxx 
+  - key: REACT_APP_GOOGLE_ANALYTICS_ID
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  - key: REACT_APP_SLACK_CLIENT_ID
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  # - key: REACT_APP_SENTRY_DSN
+  #   scope: RUN_AND_BUILD_TIME
+  #   value: xxx
+  - key: REACT_APP_LOGROCKET_ID
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  - key: REACT_APP_STRIPE_PUBLIC_KEY
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  - key: REACT_APP_FILE_UPLOADS_ENABLED
+    scope: RUN_AND_BUILD_TIME
+    value: "1"
+  - key: REACT_APP_USER_INVITATION_EMAIL_ENABLED
+    scope: RUN_AND_BUILD_TIME
+    value: "1"
+  - key: AWS_ACCESS_KEY_ID
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  - key: AWS_SECRET_ACCESS_KEY
+    scope: RUN_AND_BUILD_TIME
+    value: xxx
+  - key: FUNCTION_ROLE
+    scope: RUN_AND_BUILD_TIME
+    value: lambda_exec_role
+  - key: FUNCTION_BUCKET_NAME
+    scope: RUN_AND_BUILD_TIME
+    value: fxo-papercups
+  - key: AWS_ACCOUNT_ID
+    scope: RUN_AND_BUILD_TIME
+    value: "xxx"
+  - key: BUCKET_NAME
+    scope: RUN_AND_BUILD_TIME
+    value: fxo-papercups
+  - key: AWS_REGION
+    scope: RUN_AND_BUILD_TIME
+    value: eu-west-1
+  - key: SES_FORWARDING_DOMAIN
+    scope: RUN_AND_BUILD_TIME
+    value: chatmail.flowxo.com
+  - key: SES_BUCKET_NAME
+    scope: RUN_AND_BUILD_TIME
+    value: fxo-papercups-mail
+  - key: SES_REGION
+    scope: RUN_AND_BUILD_TIME
+    value: eu-west-1
+  - key: REQUIRE_DB_SSL
+    scope: RUN_AND_BUILD_TIME
+    value: "true"
   http_port: 8080
   image:
     registry_type: DOCR

@@ -18,11 +18,11 @@
       "value": "CHANGE-ME.herokuapp.com",
       "required": true
     },
-    "PAPERCUPS_SLACK_CLIENT_ID": {
+    "SLACK_CLIENT_ID": {
       "description": "The client ID of your Slack app",
       "required": false
     },
-    "PAPERCUPS_SLACK_CLIENT_SECRET": {
+    "SLACK_CLIENT_SECRET": {
       "description": "The client secret of your Slack app",
       "required": false
     },
