@@ -92,7 +92,7 @@ defmodule ChatApi.Workers.SendMentionNotification do
 
   @spec has_valid_email_domain? :: boolean()
   def has_valid_email_domain?() do
-    domain = System.get_env("DOMAIN")
+    domain = System.get_env("MAILGUN_DOMAIN")
     domain && domain != ""
   end
 

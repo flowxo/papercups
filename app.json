@@ -34,7 +34,7 @@
       "description": "Your Google Analytics ID (e.g. UA-000000000-1)",
       "required": false
     },
-    "FROM_ADDRESS": {
+    "EMAIL_FROM_ADDRESS": {
       "description": "The email address where you will be alerting your customer service agents from",
       "required": false
     },
@@ -42,7 +42,7 @@
       "description": "Mailgun api key",
       "required": false
     },
-    "DOMAIN": {
+    "MAILGUN_DOMAIN": {
       "description": "The domain you are sending email from",
       "required": false
     }

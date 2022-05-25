@@ -1,0 +1,42 @@
+name: fxo-papercups-staging
+region: sfo
+services:
+- envs:
+  - key: SECRET_KEY_BASE
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: mtp/jOSI50Lxexba9WdXeuX1kTQ2+Xr+uxwZW6oykAGvAhwORP9CYqBeKSkzpSv/
+  - key: BACKEND_URL
+    scope: RUN_AND_BUILD_TIME
+    value: fxo-papercups-staging.ondigitalocean.app/
+  - key: IS_HOSTED
+    scope: RUN_AND_BUILD_TIME
+    value: "true"
+  - key: REACT_APP_URL
+    scope: RUN_AND_BUILD_TIME
+    value: fxo-papercups-staging.ondigitalocean.app/
+  - key: DATABASE_URL
+    scope: RUN_AND_BUILD_TIME
+    value: postgresql://doadmin:AVNS_ro-6mqub0aIfGGX@fxo-papercups-staging-do-user-1656852-0.b.db.ondigitalocean.com:25061/fxo-papercups-staging?sslmode=require
+  - key: EMAIL_FROM_NAME
+    scope: RUN_AND_BUILD_TIME
+    value: Flow XO Support
+  - key: EMAIL_FROM_ADDRESS
+    scope: RUN_AND_BUILD_TIME
+    value: support@mailer.flowxo.com
+  - key: EMAIL_REPLY_TO_ADDRESS
+    scope: RUN_AND_BUILD_TIME
+    value: support@flowxo.com
+  - key: xxx
+
+
+  http_port: 8080
+  image:
+    registry_type: DOCR
+    repository: flowxo/papercups
+    tag: latest
+  instance_count: 1
+  instance_size_slug: basic-xs
+  name: flowxo-papercups
+  routes:
+  - path: /

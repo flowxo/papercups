@@ -106,7 +106,7 @@ case mailer_adapter do
       adapter: Swoosh.Adapters.Mailgun,
       api_key: System.get_env("MAILGUN_API_KEY"),
       # Domain is the email address that mailgun is sent from
-      domain: System.get_env("DOMAIN")
+      domain: System.get_env("MAILGUN_DOMAIN")
 
   "Swoosh.Adapters.SMTP" ->
     config :chat_api, ChatApi.Mailers,
@@ -177,7 +177,7 @@ if System.get_env("APPSIGNAL_API_KEY") do
     active: true
 end
 
-case System.get_env("PAPERCUPS_STRIPE_SECRET") do
+case System.get_env("STRIPE_SECRET") do
   "sk_" <> _rest = api_key ->
     config :stripity_stripe, api_key: api_key
 

@@ -24,7 +24,7 @@ defmodule ChatApi.Slack.Notification do
 
   @spec log(binary() | map()) :: :ok | Tesla.Env.result()
   def log(message) do
-    case System.get_env("PAPERCUPS_SLACK_WEBHOOK_URL") do
+    case System.get_env("SLACK_WEBHOOK_URL") do
       "https://hooks.slack.com/services/" <> _rest = url ->
         log(message, url)
 

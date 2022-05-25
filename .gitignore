@@ -41,4 +41,6 @@ chat_api-*.tar
 
 fly.toml
 
+do-spec.staging.yml
+
 **/node_modules

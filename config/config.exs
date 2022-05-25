@@ -5,7 +5,9 @@ config :chat_api,
   ecto_repos: [ChatApi.Repo],
   generators: [binary_id: true]
 
-config :chat_api, ChatApi.Repo, migration_timestamps: [type: :utc_datetime_usec]
+config :chat_api, ChatApi.Repo,
+  migration_timestamps: [type: :utc_datetime_usec],
+  prepare: :unnamed
 
 # Configures the endpoint
 config :chat_api, ChatApiWeb.Endpoint,
