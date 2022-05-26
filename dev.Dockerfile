@@ -11,7 +11,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     mix local.rebar --force
 
 # declared here since they are required at build and run time.
-ENV DATABASE_URL="ecto://postgres:postgres@localhost/chat_api" SECRET_KEY_BASE="" MIX_ENV=dev FROM_ADDRESS="" MAILGUN_API_KEY=""
+ENV DATABASE_URL="ecto://postgres:postgres@localhost/chat_api" SECRET_KEY_BASE="" MIX_ENV=dev EMAIL_FROM_ADDRESS="" MAILGUN_API_KEY=""
 
 COPY mix.exs mix.lock ./
 COPY config config

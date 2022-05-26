@@ -14,3 +14,6 @@
 ```doctl apps create --spec <specfile>```
 #For example
 ```doctl apps create --spec do-spc.yml```
+
+#Setup SES webhook for email forwarding
+```ENV=staging SES_WEBHOOK_URL=https://papercups-staging.flowxo.com ./scripts/ses_setup.sh```
