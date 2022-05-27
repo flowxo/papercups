@@ -22,8 +22,8 @@ defmodule ChatApiWeb.SessionController do
                 user_id: conn.assigns.current_user.id,
                 email: conn.assigns.current_user.email,
                 account_id: conn.assigns.current_user.account_id,
-                token: conn.private[:api_auth_token],
-                renew_token: conn.private[:api_renew_token]
+                token: conn.private[:api_access_token],
+                renew_token: conn.private[:api_renewal_token]
               }
             })
         end
@@ -60,8 +60,8 @@ defmodule ChatApiWeb.SessionController do
                 user_id: user.id,
                 email: user.email,
                 account_id: user.account_id,
-                token: conn.private[:api_auth_token],
-                renew_token: conn.private[:api_renew_token]
+                token: conn.private[:api_access_token],
+                renew_token: conn.private[:api_renewal_token]
               }
             })
         end

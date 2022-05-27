@@ -204,8 +204,8 @@ defmodule ChatApiWeb.RegistrationController do
   defp send_api_token(conn) do
     json(conn, %{
       data: %{
-        token: conn.private[:api_auth_token],
-        renew_token: conn.private[:api_renew_token]
+        token: conn.private[:api_access_token],
+        renew_token: conn.private[:api_renewal_token]
       }
     })
   end

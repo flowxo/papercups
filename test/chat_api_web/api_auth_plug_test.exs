@@ -24,8 +24,8 @@ defmodule ChatApiWeb.APIAuthPlugTest do
   test "can create, fetch, renew, and delete session", %{conn: conn, user: user} do
     assert {_no_auth_conn, nil} = APIAuthPlug.fetch(conn, @pow_config)
 
-    assert {%{private: %{api_auth_token: access_token, api_renew_token: renewal_token}}, ^user} =
-             APIAuthPlug.create(conn, user, @pow_config)
+    assert {%{private: %{api_access_token: access_token, api_renewal_token: renewal_token}},
+            ^user} = APIAuthPlug.create(conn, user, @pow_config)
 
     :timer.sleep(100)
 
@@ -33,8 +33,8 @@ defmodule ChatApiWeb.APIAuthPlugTest do
 
     assert {%{
               private: %{
-                api_auth_token: _renewed_access_token,
-                api_renew_token: _renewed_renewal_token
+                api_access_token: _renewed_access_token,
+                api_renewal_token: _renewed_renewal_token
               }
             }, ^user} = APIAuthPlug.renew(with_auth_header(conn, renewal_token), @pow_config)
 

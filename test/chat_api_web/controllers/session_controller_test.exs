@@ -53,7 +53,7 @@ defmodule ChatApiWeb.SessionControllerTest do
       authed_conn = post(conn, Routes.session_path(conn, :create, auth_params(user)))
       :timer.sleep(100)
 
-      {:ok, renewal_token: authed_conn.private[:api_renew_token]}
+      {:ok, renewal_token: authed_conn.private[:api_renewal_token]}
     end
 
     test "with valid authorization header", %{conn: conn, renewal_token: token} do
@@ -96,7 +96,7 @@ defmodule ChatApiWeb.SessionControllerTest do
     setup %{conn: conn, user: user} do
       authed_conn = post(conn, Routes.session_path(conn, :create, auth_params(user)))
       :timer.sleep(100)
-      {:ok, access_token: authed_conn.private[:api_auth_token]}
+      {:ok, access_token: authed_conn.private[:api_access_token]}
     end
 
     test "invalidates", %{conn: conn, access_token: token} do
