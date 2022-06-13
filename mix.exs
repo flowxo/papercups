@@ -50,7 +50,7 @@ defmodule ChatApi.MixProject do
       {:ex_aws_ses, "~> 2.0"},
       {:swoosh, "~> 1.6"},
       {:gen_smtp, "~> 0.13"},
-      {:phoenix, "~> 1.6.9"},
+      {:phoenix, "~> 1.6.10"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.8"},
       {:postgrex, ">= 0.16.3"},
